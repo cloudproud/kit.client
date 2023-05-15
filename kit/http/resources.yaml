@@ -1,0 +1,1062 @@
+openapi: 3.0.3
+info:
+  title: Kit
+  version: 0.1.0
+  description: |-
+    
+tags:
+  - name: Cluster
+    description: Endpoints to manage and interact with the cluster (Enterprise Only)
+  - name: SQL
+    description: Endpoints to interact with the underlying data
+  - name: Sources
+    description: Endpoints to manage and interact with data sources
+  - name: Catalogs
+    description: Endpoints to manage and interact with data catalogs
+  - name: IAM
+    description: Identity access management endpoints
+paths:
+  /v1/cluster:
+    get:
+      tags:
+      - Cluster
+      summary: Get information about the current cluster
+      operationId: getCluster
+      responses:
+        '200':
+          description:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cluster'
+        '400':
+          description: The user is unauthorised to create a new catalog
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /v1/organisation/{organisation_id}/query:
+    get:
+      tags:
+        - SQL
+      summary: Interact with the data catalogs through SQL
+      description: Interact with the configured underlying data catalogs using SQL.
+      operationId: query
+      parameters:
+        - in: path
+          name: organisation_id
+          schema:
+            type: integer
+            format: uint64
+          required: true
+          description: Unique organisation identifier
+        - name: statements
+          in: query
+          description: SQL query statements to be executed
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The query has executed successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rows'
+        '400':
+          description: Invalid SQL query. This status code is returned whenever the returned SQL query is invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '401':
+          description: The user is unauthorised to access one or more of the requested data catalogs.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /v1/organisation/{organisation_id}/sources:
+    get:
+      tags:
+        - Sources
+      summary: Fetch all sources
+      description: Fetch all sources within a given catalog
+      operationId: getSources
+      parameters:
+        - in: path
+          name: organisation_id
+          schema:
+            type: integer
+            format: uint64
+          required: true
+          description: Unique organisation identifier
+      responses:
+        '201':
+          description:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sources'
+        '401':
+          description: The user is unauthorised to update the given catalog.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /v1/organisation/{organisation_id}/source:
+    post:
+      tags:
+      - Sources
+      summary: Create a new source
+      description: Create a new catalog source using the given parameters
+      operationId: newSource
+      parameters:
+        - in: path
+          name: organisation_id
+          schema:
+            type: integer
+            format: uint64
+          required: true
+          description: Unique organisation identifier
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewSource'
+      responses:
+        '201':
+          description:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Source'
+        '400':
+          description: The user is unauthorised to create a new catalog source
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /v1/organisation/{organisation_id}/source/{source_id}:
+    get:
+      tags:
+        - Sources
+      summary: Fetch the source details within the given catalog
+      description: Retreive the source details within the a given catalog matching the given source id.
+      operationId: getSource
+      parameters:
+        - in: path
+          name: organisation_id
+          schema:
+            type: integer
+            format: uint64
+          required: true
+          description: Unique organisation identifier
+        - in: path
+          name: source_id
+          schema:
+            type: integer
+            format: uint64
+          required: true
+          description: Unique source identifier
+      responses:
+        '200':
+          description:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Source'
+        '401':
+          description: The user is unauthorised to access the given catalog options.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    delete:
+      tags:
+        - Sources
+      summary: Delete a single catalog source
+      description: Delete a single catalog source
+      operationId: deleteSource
+      parameters:
+        - in: path
+          name: organisation_id
+          schema:
+            type: integer
+            format: uint64
+          required: true
+          description: Unique organisation identifier
+        - in: path
+          name: source_id
+          schema:
+            type: integer
+            format: uint64
+          required: true
+          description: Unique source identifier
+      responses:
+        '200':
+          description: The catalog source has been deleted
+        '401':
+          description: The user is unauthorised to delete the given catalog source
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /v1/organisation/{organisation_id}/source/{source_id}/options:
+    get:
+      tags:
+        - Sources
+      summary: Fetch the source options within the given catalog
+      description: Retreive the source options within the a given catalog matching the given source id.
+      operationId: getSourceOptions
+      parameters:
+        - in: path
+          name: organisation_id
+          schema:
+            type: integer
+            format: uint64
+          required: true
+          description: Unique organisation identifier
+        - in: path
+          name: source_id
+          schema:
+            type: integer
+            format: uint64
+          required: true
+          description: Unique source identifier
+      responses:
+        '200':
+          description:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceOptions'
+        '401':
+          description: The user is unauthorised to access the given catalog options.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /v1/organisation/{organisation_id}/source/{source_id}/fetch:
+    get:
+      tags:
+        - Sources
+      summary: Fetch the latest source tables and schemas
+      description: Fetch the latest source tables and schemas and update the internal definitions
+      operationId: fetchSource
+      parameters:
+        - in: path
+          name: organisation_id
+          schema:
+            type: integer
+            format: uint64
+          required: true
+          description: Unique organisation identifier
+        - in: path
+          name: source_id
+          schema:
+            type: integer
+            format: uint64
+          required: true
+          description: Unique source identifier
+      responses:
+        '200':
+          description:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Source'
+        '401':
+          description: The user is unauthorised to access the given catalog options.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /v1/organisation/{organisation_id}/catalog:
+    post:
+      tags:
+      - Catalogs
+      summary: Post a new catalog
+      description: Create a new catalog using the given parameters
+      operationId: newCatalog
+      parameters:
+        - in: path
+          name: organisation_id
+          schema:
+            type: integer
+            format: uint64
+          required: true
+          description: Unique organisation identifier
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpsertCatalog'
+      responses:
+        '201':
+          description:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Catalog'
+        '400':
+          description: The user is unauthorised to create a new catalog
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /v1/organisation/{organisation_id}/catalog/{catalog_id}:
+    get:
+      tags:
+        - Catalogs
+      summary: Fetch all data sets within the given catalog
+      description: Fetch all data sets within a given catalog
+      operationId: getCatalog
+      parameters:
+        - in: path
+          name: organisation_id
+          schema:
+            type: integer
+            format: uint64
+          required: true
+          description: Unique organisation identifier
+        - in: path
+          name: catalog_id
+          schema:
+            type: integer
+            format: uint64
+          required: true
+          description: Unique catalog identifier
+      responses:
+        '200':
+          description:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Catalog'
+        '401':
+          description: The user is unauthorised to get all tables.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    put:
+      tags:
+      - Catalogs
+      summary: Add a table to a catalog
+      description: Attempts to add the given dataset to the given catalog
+      operationId: updateCatalog
+      parameters:
+        - in: path
+          name: organisation_id
+          schema:
+            type: integer
+            format: uint64
+          required: true
+          description: Unique organisation identifier
+        - in: path
+          name: catalog_id
+          schema:
+            type: integer
+            format: uint64
+          required: true
+          description: Unique catalog identifier
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpsertCatalog'
+      responses:
+        '201':
+          description:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Catalog'
+        '400':
+          description: The user is unauthorised to create a new catalog
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    delete:
+      tags:
+        - Catalogs
+      summary: Delete a single catalog
+      description: Delete a single catalog
+      operationId: deleteCatalog
+      parameters:
+        - in: path
+          name: organisation_id
+          schema:
+            type: integer
+            format: uint64
+          required: true
+          description: Unique organisation identifier
+        - in: path
+          name: catalog_id
+          schema:
+            type: integer
+            format: uint64
+          required: true
+          description: Unique catalog identifier
+      responses:
+        '200':
+          description: The catalog has been deleted
+        '401':
+          description: The user is unauthorised to delete the given catalog
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /v1/organisation/{organisation_id}/catalogs:
+    get:
+      tags:
+        - Catalogs
+      summary: Fetch all data catalogs
+      description: Fetches all configured catalogs
+      operationId: getCatalogs
+      parameters:
+        - in: path
+          name: organisation_id
+          schema:
+            type: integer
+            format: uint64
+          required: true
+          description: Unique organisation identifier
+      responses:
+        '200':
+          description: 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Catalogs'
+  /v1/user:
+    post:
+      tags:
+        - IAM
+      summary: Create a user
+      description: Create a user account within the cluster.
+      operationId: newUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewUser'
+      responses:
+        '201':
+          description:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /v1/user/{id}:
+    get:
+      tags:
+        - IAM
+      summary: Get a user matching the given id
+      description: Get a user matching the given id.
+      operationId: getUser
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+          format: uint64
+        required: true
+        description: Unique user identifier
+      responses:
+        '201':
+          description:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    delete:
+      tags:
+        - IAM
+      summary: Delete a single user
+      description: Delete a single user
+      operationId: deleteUser
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+          format: uint64
+        required: true
+        description: Unique user identifier
+      responses:
+        '200':
+          description: The user has been deleted
+        '401':
+          description: The user is unauthorised to delete the given user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /v1/organisations:
+    get:
+      tags:
+        - IAM
+      summary: Retreive all organisations
+      description: Retreive all organisations that the given user is part of.
+      operationId: getAllOrganisations
+      responses:
+        '200':
+          description:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organisations'
+        '401':
+          description: The user is unauthorised to retreive an overview of all organisations.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /v1/organisation:
+    post:
+      tags:
+        - IAM
+      summary: Create a new organisation
+      description: Create a new organisation within the cluster.
+      operationId: newOrganisation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewOrganisation'
+      responses:
+        '201':
+          description:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organisation'
+  /v1/organisation/{organisation_id}:
+    get:
+      tags:
+        - IAM
+      summary: Retreive organisation details
+      description: Retreive a single organisation details.
+      operationId: getOrganisation
+      parameters:
+      - in: path
+        name: organisation_id
+        schema:
+          type: integer
+          format: uint64
+        required: true
+        description: Unique organisation identifier
+      responses:
+        '200':
+          description:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organisation'
+        '401':
+          description: The user is unauthorised to retreive the details of the requested organisation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    delete:
+      tags:
+        - IAM
+      summary: Delete a single organisation
+      description: Delete a single organisation.
+      operationId: deleteOrganisation
+      parameters:
+      - in: path
+        name: organisation_id
+        schema:
+          type: integer
+          format: uint64
+        required: true
+        description: Unique organisation identifier
+      responses:
+        '200':
+          description: The organisation has been deleted
+        '401':
+          description: The user is unauthorised to delete the given organisation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /v1/organisation/{organisation_id}/service_account:
+    post:
+      tags:
+        - IAM
+      summary: Add a new service account to the given organisation
+      description: Add a new service account to the given organisation.
+      operationId: newOrganisationServiceAccount
+      parameters:
+      - in: path
+        name: organisation_id
+        schema:
+          type: integer
+          format: uint64
+        required: true
+        description: Unique organisation identifier
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewServiceAccount'
+      responses:
+        '201':
+          description:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceAccount'
+        '401':
+          description: The user is unauthorised to post a new service account.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /v1/organisation/{organisation_id}/service_account/{service_id}:
+    get:
+      tags:
+        - IAM
+      summary: Get a single service account within a organisation
+      description: Get a single service account registered within the given organisation.
+      operationId: getOrganisationServiceAccount
+      parameters:
+      - in: path
+        name: organisation_id
+        schema:
+          type: integer
+          format: uint64
+        required: true
+        description: Unique organisation identifier
+      - in: path
+        name: service_id
+        schema:
+          type: integer
+          format: uint64
+        required: true
+        description: Unique service account identifier
+      responses:
+        '200':
+          description:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceAccount'
+        '401':
+          description: The user is unauthorised to retreive the details of a service account within the given organisation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+    delete:
+      tags:
+        - IAM
+      summary: Delete a single service account within a organisation
+      description: Delete a single service account registered within the given organisation.
+      operationId: deleteOrganisationServiceAccount
+      parameters:
+      - in: path
+        name: organisation_id
+        schema:
+          type: integer
+          format: uint64
+        required: true
+        description: Unique organisation identifier
+      - in: path
+        name: service_id
+        schema:
+          type: integer
+          format: uint64
+        required: true
+        description: Unique service account identifier
+      responses:
+        '200':
+          description: The service account has been deleted
+        '401':
+          description: The user is unauthorised to delete a service account within the given organisation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+  /v1/organisation/{organisation_id}/service_accounts:
+    get:
+      tags:
+        - IAM
+      summary: Retreive all service accounts of a given organisation
+      description: Retreive all service accounts registered within the given organisation.
+      operationId: getOrganisationServiceAccounts
+      parameters:
+      - in: path
+        name: organisation_id
+        schema:
+          type: integer
+          format: uint64
+        required: true
+        description: Unique organisation identifier
+      responses:
+        '200':
+          description:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceAccounts'
+        '401':
+          description: The user is unauthorised to retreive an overview of all service accounts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+components:
+  schemas:
+    Problem:
+      type: object
+      required:
+        - title
+        - detail
+      properties:
+        title:
+          type: string
+          description: >
+            A short summary of the problem type. Written in English and readable
+            for engineers, usually not suited for non technical stakeholders and
+            not localized.
+          example: some title for the error situation
+        detail:
+          type: string
+          description: >
+            A human readable explanation specific to this occurrence of the
+            problem that is helpful to locate the problem and give advice on how
+            to proceed. Written in English and readable for engineers, usually not
+            suited for non technical stakeholders and not localized.
+          example: some description for the error situation
+    Rows:
+      type: object
+      required:
+        - columns
+        - rows
+      properties:
+        columns:
+          type: array
+          items:
+            $ref: '#/components/schemas/Column'
+          example:
+            - name: first_name
+              type: string
+              cap: 256
+            - name: last_name
+              type: string
+              cap: 256
+        rows:
+          type: array
+          items:
+            type: array
+            items:
+              types:
+                - string
+                - null
+            example:
+              - John
+              - null
+    Column:
+      type: object
+      required:
+        - id
+        - name
+        - type
+        - cap
+        - nullable
+      properties:
+        id:
+          type: integer
+          format: uint64
+        name:
+          type: string
+        type:
+          type: string
+        cap:
+          type: integer
+          format: uint64
+        nullable:
+          type: boolean
+    Catalogs:
+      type: array
+      items:
+        $ref: '#/components/schemas/Catalog'
+    Catalog:
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - labels
+        - tables
+      properties:
+        id:
+          type: integer
+          format: uint64
+        name:
+          type: string
+          example: "customer_service"
+        description:
+          type: string
+        labels:
+          type: array
+          items:
+            type: string
+        tables:
+          $ref: '#/components/schemas/Tables'
+    UpsertCatalog:
+      type: object
+      required:
+        - name
+        - description
+        - labels
+        - tables
+      properties:
+        name:
+          type: string
+          description: the catalog name referenced within SQL queries
+        description:
+          type: string
+        labels:
+          type: array
+          items:
+            type: string
+        tables:
+          type: array
+          items:
+              $ref: '#/components/schemas/UpsertTable'
+    UpsertTable:
+      type: object
+      required:
+        - id
+        - name
+        - schema
+      properties:
+        id:
+          type: integer
+          format: uint64
+        name:
+          type: string
+          description: the table name referenced within SQL queries
+        schema:
+          type: string
+          default: public
+          description: the table schema referenced within SQL queries
+    Sources:
+      type: array
+      items:
+        $ref: '#/components/schemas/Source'
+    Source:
+      type: object
+      required:
+        - id
+        - name
+        - origin
+        - healthy
+        - tables
+      properties:
+        id:
+          type: integer
+          format: uint64
+        name:
+          type: string
+          example: "Customer Service"
+        origin:
+          type: string
+          example: "postgres"
+        healthy:
+          type: boolean
+        tables:
+          $ref: '#/components/schemas/Tables'
+    NewSource:
+      type: object
+      required:
+        - name
+        - origin
+        - options
+      properties:
+        name:
+          type: string
+          example: "Customer Service"
+        origin:
+          type: string
+          example: "postgresql"
+        options:
+          $ref: '#/components/schemas/SourceOptions'
+    SourceOptions:
+      type: object
+      additionalProperties:
+        type: string
+      example:
+        host: 127.0.0.1
+        port: "5321"
+    Tables:
+      type: array
+      items:
+        $ref: '#/components/schemas/Table'
+    Table:
+      type: object
+      required:
+        - id
+        - name
+        - schema
+        - schemaless
+        - columns
+        - type
+      properties:
+        id:
+          type: integer
+          format: uint64
+        name:
+          type: string
+        schema:
+          type: string
+        schemaless:
+          type: boolean
+        columns:
+          type: array
+          items:
+            $ref: '#/components/schemas/Column'
+    NewOrganisation:
+      type: object
+      required:
+        - name
+        - owner_id
+      properties:
+        name:
+          type: string
+          example: Hooli
+        owner_id:
+          type: integer
+          format: uint64
+    Organisations:
+      type: array
+      items:
+        $ref: '#/components/schemas/Organisation'
+    Organisation:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: uint64
+        name:
+          type: string
+    NewUser:
+      type: object
+      required:
+        - full_name
+        - email
+        - password
+      properties:
+        full_name:
+          type: string
+        email:
+          type: string
+          format: email
+          x-go-type: string
+        password:
+          type: string
+    User:
+      type: object
+      required:
+        - id
+        - full_name
+        - email
+      properties:
+        id:
+          type: integer
+          format: uint64
+        full_name:
+          type: string
+        email:
+          type: string
+          format: email
+          x-go-type: string
+    NewServiceAccount:
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - labels
+      properties:
+        principal:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        labels:
+          type: array
+          items:
+            type: string
+    ServiceAccounts:
+      type: array
+      items:
+        $ref: '#/components/schemas/ServiceAccount'
+    ServiceAccount:
+      type: object
+      required:
+        - principal
+        - name
+        - description
+        - labels
+      properties:
+        principal:
+          type: string
+          format: email
+        name:
+          type: string
+        description:
+          type: string
+        labels:
+          type: array
+          items:
+            type: string
+    Cluster:
+      type: object
+      required:
+        - leader
+        - healthy
+        - nodes
+      properties:
+        leader:
+          type: integer
+          format: uint64
+        healthy:
+          type: boolean
+        nodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/Node'
+    Node:
+      type: object
+      required:
+        - id
+        - address
+        - healthy
+        - ready
+      properties:
+        id:
+          type: integer
+          format: uint64
+        address:
+          type: string
+        healthy:
+          type: boolean
+        ready:
+          type: boolean
