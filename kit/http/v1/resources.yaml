@@ -862,7 +862,7 @@ components:
       required:
         - id
         - name
-        - driver
+        - connector
         - healthy
         - tables
       properties:
@@ -872,10 +872,10 @@ components:
         name:
           type: string
           example: "Customer Service"
-        driver:
+        connector:
           type: string
           example: "postgres"
-          description: represents the driver name used to connect with the given source
+          description: represents the connector name used to connect with the given source
         healthy:
           type: boolean
         tables:
@@ -884,16 +884,16 @@ components:
       type: object
       required:
         - name
-        - driver
+        - connector
         - options
       properties:
         name:
           type: string
           example: "Customer Service"
-        driver:
+        connector:
           type: string
           example: "postgresql"
-          description: represents the driver name used to connect with the given source
+          description: represents the connector name used to connect with the given source
         options:
           $ref: '#/components/schemas/SourceOptions'
     SourceOptions:
