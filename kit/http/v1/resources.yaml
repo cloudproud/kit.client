@@ -91,8 +91,8 @@ paths:
           required: true
           description: Unique organisation identifier
       responses:
-        '201':
-          description:
+        '200':
+          description: ""
           content:
             application/json:
               schema:
@@ -469,12 +469,18 @@ paths:
         required: true
         description: Unique user identifier
       responses:
-        '201':
+        '200':
           description:
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
+        '404':
+          description: no record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
     delete:
       tags:
         - IAM
@@ -538,6 +544,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Organisation'
+        '400':
+          description: Validation error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
   /v1/organisation/{organisation_id}:
     get:
       tags:
@@ -562,6 +574,12 @@ paths:
                 $ref: '#/components/schemas/Organisation'
         '401':
           description: The user is unauthorised to retreive the details of the requested organisation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: ""
           content:
             application/json:
               schema:
@@ -811,6 +829,7 @@ components:
           type: string
         labels:
           type: array
+          nullable: true
           items:
             type: string
         tables:
