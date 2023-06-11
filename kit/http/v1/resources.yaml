@@ -964,6 +964,9 @@ components:
         name:
           type: string
           example: Hooli
+        domain:
+          type: string
+          example: hooli.com
         owner_id:
           type: integer
           format: uint64
@@ -976,20 +979,27 @@ components:
       required:
         - id
         - name
+        - domain
       properties:
         id:
           type: integer
           format: uint64
         name:
           type: string
+        domain:
+          type: string
+          example: hooli.com
     NewUser:
       type: object
       required:
         - full_name
+        - username
         - email
         - password
       properties:
         full_name:
+          type: string
+        username:
           type: string
         email:
           type: string
@@ -1007,6 +1017,8 @@ components:
         id:
           type: integer
           format: uint64
+        username:
+          type: string
         full_name:
           type: string
         email:
