@@ -98,7 +98,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Sources'
         '401':
-          description: The user is unauthorised to update the given catalog.
+          description: The user is unauthorised to access the sources within the given organisation
           content:
             application/json:
               schema:
@@ -131,8 +131,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Source'
-        '400':
-          description: The user is unauthorised to create a new catalog source
+        '401':
+          description: The user is unauthorised to create a new source
           content:
             application/json:
               schema:
@@ -166,8 +166,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Source'
+        '404':
+          description: The requested source has not been found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
         '401':
-          description: The user is unauthorised to access the given catalog options.
+          description: The user is unauthorised to access the given source.
           content:
             application/json:
               schema:
@@ -195,9 +201,9 @@ paths:
           description: Unique source identifier
       responses:
         '200':
-          description: The catalog source has been deleted
+          description: The source has been deleted
         '401':
-          description: The user is unauthorised to delete the given catalog source
+          description: The user is unauthorised to delete the given source
           content:
             application/json:
               schema:
@@ -232,7 +238,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/SourceOptions'
         '401':
-          description: The user is unauthorised to access the given catalog options.
+          description: The user is unauthorised to access the given source options.
           content:
             application/json:
               schema:
@@ -267,7 +273,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Source'
         '401':
-          description: The user is unauthorised to access the given catalog options.
+          description: The user is unauthorised to fetch the latest source schemas
           content:
             application/json:
               schema:
@@ -300,7 +306,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Catalog'
-        '400':
+        '401':
           description: The user is unauthorised to create a new catalog
           content:
             application/json:
