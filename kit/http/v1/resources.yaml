@@ -1012,6 +1012,7 @@ components:
       required:
         - id
         - full_name
+        - username
         - email
       properties:
         id:
