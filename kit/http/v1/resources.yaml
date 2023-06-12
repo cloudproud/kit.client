@@ -959,6 +959,7 @@ components:
       type: object
       required:
         - name
+        - domain
         - owner_id
       properties:
         name:
