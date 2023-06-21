@@ -504,14 +504,14 @@ paths:
         - IAM
       summary: Retreive all namespaces
       description: Retreive all namespaces that the given user is part of.
-      operationId: getAllOrganisations
+      operationId: getAllNamespaces
       responses:
         '200':
           description:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Organisations'
+                $ref: '#/components/schemas/Namespaces'
         '401':
           description: The user is unauthorised to retreive an overview of all namespaces.
           content:
@@ -524,20 +524,20 @@ paths:
         - IAM
       summary: Create a new namespace
       description: Create a new namespace within the cluster.
-      operationId: newOrganisation
+      operationId: newNamespace
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewOrganisation'
+              $ref: '#/components/schemas/NewNamespace'
       responses:
         '201':
           description:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Organisation'
+                $ref: '#/components/schemas/Namespace'
         '400':
           description: Validation error.
           content:
@@ -550,13 +550,12 @@ paths:
         - IAM
       summary: Retreive namespace details
       description: Retreive a single namespace details.
-      operationId: getOrganisation
+      operationId: getNamespace
       parameters:
       - in: path
         name: namespace
         schema:
-          type: integer
-          format: uint64
+          type: string
         required: true
         description: Unique namespace identifier
       responses:
@@ -565,7 +564,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Organisation'
+                $ref: '#/components/schemas/Namespace'
         '401':
           description: The user is unauthorised to retreive the details of the requested namespace.
           content:
@@ -583,13 +582,12 @@ paths:
         - IAM
       summary: Delete a single namespace
       description: Delete a single namespace.
-      operationId: deleteOrganisation
+      operationId: deleteNamespace
       parameters:
       - in: path
         name: namespace
         schema:
-          type: integer
-          format: uint64
+          type: string
         required: true
         description: Unique namespace identifier
       responses:
@@ -607,13 +605,12 @@ paths:
         - IAM
       summary: Add a new service account to the given namespace
       description: Add a new service account to the given namespace.
-      operationId: newOrganisationServiceAccount
+      operationId: newNamespaceServiceAccount
       parameters:
       - in: path
         name: namespace
         schema:
-          type: integer
-          format: uint64
+          type: string
         required: true
         description: Unique namespace identifier
       requestBody:
@@ -641,13 +638,12 @@ paths:
         - IAM
       summary: Get a single service account within a namespace
       description: Get a single service account registered within the given namespace.
-      operationId: getOrganisationServiceAccount
+      operationId: getNamespaceServiceAccount
       parameters:
       - in: path
         name: namespace
         schema:
-          type: integer
-          format: uint64
+          type: string
         required: true
         description: Unique namespace identifier
       - in: path
@@ -675,13 +671,12 @@ paths:
         - IAM
       summary: Delete a single service account within a namespace
       description: Delete a single service account registered within the given namespace.
-      operationId: deleteOrganisationServiceAccount
+      operationId: deleteNamespaceServiceAccount
       parameters:
       - in: path
         name: namespace
         schema:
-          type: integer
-          format: uint64
+          type: string
         required: true
         description: Unique namespace identifier
       - in: path
@@ -706,13 +701,12 @@ paths:
         - IAM
       summary: Retreive all service accounts of a given namespace
       description: Retreive all service accounts registered within the given namespace.
-      operationId: getOrganisationServiceAccounts
+      operationId: getNamespaceServiceAccounts
       parameters:
       - in: path
         name: namespace
         schema:
-          type: integer
-          format: uint64
+          type: string
         required: true
         description: Unique namespace identifier
       responses:
@@ -943,41 +937,29 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Column'
-    NewOrganisation:
+    NewNamespace:
       type: object
       required:
         - name
-        - domain
         - owner_id
       properties:
         name:
           type: string
           example: Hooli
-        domain:
-          type: string
-          example: hooli.com
         owner_id:
           type: integer
           format: uint64
-    Organisations:
+    Namespaces:
       type: array
       items:
-        $ref: '#/components/schemas/Organisation'
-    Organisation:
+        $ref: '#/components/schemas/Namespace'
+    Namespace:
       type: object
       required:
-        - id
         - name
-        - domain
       properties:
-        id:
-          type: integer
-          format: uint64
         name:
           type: string
-        domain:
-          type: string
-          example: hooli.com
     NewUser:
       type: object
       required:
