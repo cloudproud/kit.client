@@ -35,7 +35,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Problem'
-  /v1/organisation/{organisation_id}/query:
+  /v1/namespace/{namespace}/query:
     get:
       tags:
         - SQL
@@ -44,12 +44,11 @@ paths:
       operationId: query
       parameters:
         - in: path
-          name: organisation_id
+          name: namespace
           schema:
-            type: integer
-            format: uint64
+            type: string
           required: true
-          description: Unique organisation identifier
+          description: Unique namespace identifier
         - name: statements
           in: query
           description: SQL query statements to be executed
@@ -75,7 +74,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Problem'
-  /v1/organisation/{organisation_id}/sources:
+  /v1/namespace/{namespace}/sources:
     get:
       tags:
         - Sources
@@ -84,12 +83,11 @@ paths:
       operationId: getSources
       parameters:
         - in: path
-          name: organisation_id
+          name: namespace
           schema:
-            type: integer
-            format: uint64
+            type: string
           required: true
-          description: Unique organisation identifier
+          description: Unique namespace identifier
       responses:
         '200':
           description: ""
@@ -98,12 +96,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/Sources'
         '401':
-          description: The user is unauthorised to access the sources within the given organisation
+          description: The user is unauthorised to access the sources within the given namespace
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Problem'
-  /v1/organisation/{organisation_id}/source:
+  /v1/namespace/{namespace}/source:
     post:
       tags:
       - Sources
@@ -112,12 +110,11 @@ paths:
       operationId: newSource
       parameters:
         - in: path
-          name: organisation_id
+          name: namespace
           schema:
-            type: integer
-            format: uint64
+            type: string
           required: true
-          description: Unique organisation identifier
+          description: Unique namespace identifier
       requestBody:
         required: true
         content:
@@ -137,7 +134,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Problem'
-  /v1/organisation/{organisation_id}/source/{source_id}:
+  /v1/namespace/{namespace}/source/{source_id}:
     get:
       tags:
         - Sources
@@ -146,12 +143,11 @@ paths:
       operationId: getSource
       parameters:
         - in: path
-          name: organisation_id
+          name: namespace
           schema:
-            type: integer
-            format: uint64
+            type: string
           required: true
-          description: Unique organisation identifier
+          description: Unique namespace identifier
         - in: path
           name: source_id
           schema:
@@ -186,12 +182,11 @@ paths:
       operationId: deleteSource
       parameters:
         - in: path
-          name: organisation_id
+          name: namespace
           schema:
-            type: integer
-            format: uint64
+            type: string
           required: true
-          description: Unique organisation identifier
+          description: Unique namespace identifier
         - in: path
           name: source_id
           schema:
@@ -208,7 +203,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Problem'
-  /v1/organisation/{organisation_id}/source/{source_id}/options:
+  /v1/namespace/{namespace}/source/{source_id}/options:
     get:
       tags:
         - Sources
@@ -217,12 +212,11 @@ paths:
       operationId: getSourceOptions
       parameters:
         - in: path
-          name: organisation_id
+          name: namespace
           schema:
-            type: integer
-            format: uint64
+            type: string
           required: true
-          description: Unique organisation identifier
+          description: Unique namespace identifier
         - in: path
           name: source_id
           schema:
@@ -243,7 +237,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Problem'
-  /v1/organisation/{organisation_id}/source/{source_id}/fetch:
+  /v1/namespace/{namespace}/source/{source_id}/fetch:
     get:
       tags:
         - Sources
@@ -252,12 +246,11 @@ paths:
       operationId: fetchSource
       parameters:
         - in: path
-          name: organisation_id
+          name: namespace
           schema:
-            type: integer
-            format: uint64
+            type: string
           required: true
-          description: Unique organisation identifier
+          description: Unique namespace identifier
         - in: path
           name: source_id
           schema:
@@ -278,7 +271,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Problem'
-  /v1/organisation/{organisation_id}/catalog:
+  /v1/namespace/{namespace}/catalog:
     post:
       tags:
       - Catalogs
@@ -287,12 +280,11 @@ paths:
       operationId: newCatalog
       parameters:
         - in: path
-          name: organisation_id
+          name: namespace
           schema:
-            type: integer
-            format: uint64
+            type: string
           required: true
-          description: Unique organisation identifier
+          description: Unique namespace identifier
       requestBody:
         required: true
         content:
@@ -312,7 +304,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Problem'
-  /v1/organisation/{organisation_id}/catalog/{catalog_id}:
+  /v1/namespace/{namespace}/catalog/{catalog_id}:
     get:
       tags:
         - Catalogs
@@ -321,12 +313,11 @@ paths:
       operationId: getCatalog
       parameters:
         - in: path
-          name: organisation_id
+          name: namespace
           schema:
-            type: integer
-            format: uint64
+            type: string
           required: true
-          description: Unique organisation identifier
+          description: Unique namespace identifier
         - in: path
           name: catalog_id
           schema:
@@ -355,12 +346,11 @@ paths:
       operationId: updateCatalog
       parameters:
         - in: path
-          name: organisation_id
+          name: namespace
           schema:
-            type: integer
-            format: uint64
+            type: string
           required: true
-          description: Unique organisation identifier
+          description: Unique namespace identifier
         - in: path
           name: catalog_id
           schema:
@@ -395,12 +385,11 @@ paths:
       operationId: deleteCatalog
       parameters:
         - in: path
-          name: organisation_id
+          name: namespace
           schema:
-            type: integer
-            format: uint64
+            type: string
           required: true
-          description: Unique organisation identifier
+          description: Unique namespace identifier
         - in: path
           name: catalog_id
           schema:
@@ -417,7 +406,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Problem'
-  /v1/organisation/{organisation_id}/catalogs:
+  /v1/namespace/{namespace}/catalogs:
     get:
       tags:
         - Catalogs
@@ -426,12 +415,11 @@ paths:
       operationId: getCatalogs
       parameters:
         - in: path
-          name: organisation_id
+          name: namespace
           schema:
-            type: integer
-            format: uint64
+            type: string
           required: true
-          description: Unique organisation identifier
+          description: Unique namespace identifier
       responses:
         '200':
           description: 
@@ -510,12 +498,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Problem'
-  /v1/organisations:
+  /v1/namespaces:
     get:
       tags:
         - IAM
-      summary: Retreive all organisations
-      description: Retreive all organisations that the given user is part of.
+      summary: Retreive all namespaces
+      description: Retreive all namespaces that the given user is part of.
       operationId: getAllOrganisations
       responses:
         '200':
@@ -525,17 +513,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/Organisations'
         '401':
-          description: The user is unauthorised to retreive an overview of all organisations.
+          description: The user is unauthorised to retreive an overview of all namespaces.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Problem'
-  /v1/organisation:
+  /v1/namespace:
     post:
       tags:
         - IAM
-      summary: Create a new organisation
-      description: Create a new organisation within the cluster.
+      summary: Create a new namespace
+      description: Create a new namespace within the cluster.
       operationId: newOrganisation
       requestBody:
         required: true
@@ -556,21 +544,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Problem'
-  /v1/organisation/{organisation_id}:
+  /v1/namespace/{namespace}:
     get:
       tags:
         - IAM
-      summary: Retreive organisation details
-      description: Retreive a single organisation details.
+      summary: Retreive namespace details
+      description: Retreive a single namespace details.
       operationId: getOrganisation
       parameters:
       - in: path
-        name: organisation_id
+        name: namespace
         schema:
           type: integer
           format: uint64
         required: true
-        description: Unique organisation identifier
+        description: Unique namespace identifier
       responses:
         '200':
           description:
@@ -579,7 +567,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Organisation'
         '401':
-          description: The user is unauthorised to retreive the details of the requested organisation.
+          description: The user is unauthorised to retreive the details of the requested namespace.
           content:
             application/json:
               schema:
@@ -593,41 +581,41 @@ paths:
     delete:
       tags:
         - IAM
-      summary: Delete a single organisation
-      description: Delete a single organisation.
+      summary: Delete a single namespace
+      description: Delete a single namespace.
       operationId: deleteOrganisation
       parameters:
       - in: path
-        name: organisation_id
+        name: namespace
         schema:
           type: integer
           format: uint64
         required: true
-        description: Unique organisation identifier
+        description: Unique namespace identifier
       responses:
         '200':
-          description: The organisation has been deleted
+          description: The namespace has been deleted
         '401':
-          description: The user is unauthorised to delete the given organisation
+          description: The user is unauthorised to delete the given namespace
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Problem'
-  /v1/organisation/{organisation_id}/service_account:
+  /v1/namespace/{namespace}/service_account:
     post:
       tags:
         - IAM
-      summary: Add a new service account to the given organisation
-      description: Add a new service account to the given organisation.
+      summary: Add a new service account to the given namespace
+      description: Add a new service account to the given namespace.
       operationId: newOrganisationServiceAccount
       parameters:
       - in: path
-        name: organisation_id
+        name: namespace
         schema:
           type: integer
           format: uint64
         required: true
-        description: Unique organisation identifier
+        description: Unique namespace identifier
       requestBody:
         required: true
         content:
@@ -647,21 +635,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Problem'
-  /v1/organisation/{organisation_id}/service_account/{service_id}:
+  /v1/namespace/{namespace}/service_account/{service_id}:
     get:
       tags:
         - IAM
-      summary: Get a single service account within a organisation
-      description: Get a single service account registered within the given organisation.
+      summary: Get a single service account within a namespace
+      description: Get a single service account registered within the given namespace.
       operationId: getOrganisationServiceAccount
       parameters:
       - in: path
-        name: organisation_id
+        name: namespace
         schema:
           type: integer
           format: uint64
         required: true
-        description: Unique organisation identifier
+        description: Unique namespace identifier
       - in: path
         name: service_id
         schema:
@@ -677,7 +665,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ServiceAccount'
         '401':
-          description: The user is unauthorised to retreive the details of a service account within the given organisation.
+          description: The user is unauthorised to retreive the details of a service account within the given namespace.
           content:
             application/json:
               schema:
@@ -685,17 +673,17 @@ paths:
     delete:
       tags:
         - IAM
-      summary: Delete a single service account within a organisation
-      description: Delete a single service account registered within the given organisation.
+      summary: Delete a single service account within a namespace
+      description: Delete a single service account registered within the given namespace.
       operationId: deleteOrganisationServiceAccount
       parameters:
       - in: path
-        name: organisation_id
+        name: namespace
         schema:
           type: integer
           format: uint64
         required: true
-        description: Unique organisation identifier
+        description: Unique namespace identifier
       - in: path
         name: service_id
         schema:
@@ -707,26 +695,26 @@ paths:
         '200':
           description: The service account has been deleted
         '401':
-          description: The user is unauthorised to delete a service account within the given organisation.
+          description: The user is unauthorised to delete a service account within the given namespace.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Problem'
-  /v1/organisation/{organisation_id}/service_accounts:
+  /v1/namespace/{namespace}/service_accounts:
     get:
       tags:
         - IAM
-      summary: Retreive all service accounts of a given organisation
-      description: Retreive all service accounts registered within the given organisation.
+      summary: Retreive all service accounts of a given namespace
+      description: Retreive all service accounts registered within the given namespace.
       operationId: getOrganisationServiceAccounts
       parameters:
       - in: path
-        name: organisation_id
+        name: namespace
         schema:
           type: integer
           format: uint64
         required: true
-        description: Unique organisation identifier
+        description: Unique namespace identifier
       responses:
         '200':
           description:
