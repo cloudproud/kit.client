@@ -21,6 +21,8 @@ spec:
     metadata:
       labels:
         app: prism
+      annotations:
+        checksum/config: {{ .Files.Get "resources.yaml" | sha256sum }}
     spec:
       containers:
       - name: prism
