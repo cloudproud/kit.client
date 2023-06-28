@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: http-specs
+data:
+  resources.yaml: |
+{{ .Files.Get "resources.yaml" | indent 4 }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prism
+  labels:
+    app: prism
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: prism
+  template:
+    metadata:
+      labels:
+        app: prism
+    spec:
+      containers:
+      - name: prism
+        image: stoplight/prism
+        args:
+          - mock
+          - "/var/specs/resources.yaml"
+        ports:
+        - containerPort: 8010
+        volumeMounts:
+        - name: resources
+          mountPath: /var/specs
+      volumes:
+        - name: resources
+          configMap:
+            name: http-specs
