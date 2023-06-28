@@ -28,7 +28,5 @@ jobs:
         cluster_name: ${{ vars.GKE_CLUSTER }}
         location: ${{ vars.GKE_LOCATION }}
 
-    - name: Deploy HELM3
-      uses: WyriHaximus/github-action-helm3@v3
-      with:
-        exec: helm upgrade --install --wait --debug dev charts
+    - name: Deploy HELM charts
+      run: helm upgrade --install --wait --debug dev charts
