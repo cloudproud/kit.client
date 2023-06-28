@@ -39,3 +39,16 @@ spec:
         - name: resources
           configMap:
             name: http-specs
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prism
+spec:
+  type: NodePort
+  selector:
+    app: prism
+  ports:
+  - protocol: TCP
+    port: 8010
+    targetPort: 8010
