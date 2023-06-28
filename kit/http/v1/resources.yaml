@@ -505,6 +505,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Namespaces'
+              example: 
+                - name: default
+                - name : Arya_Stark #dit is ook een voorbeeld
         '401':
           description: The user is unauthorised to retreive an overview of all namespaces.
           content:
@@ -525,12 +528,13 @@ paths:
             schema:
               $ref: '#/components/schemas/NewNamespace'
       responses:
-        '201':
+        '200':
           description:
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Namespace'
+              # example: Sansa Stark #werkt maar niet zo good 
         '400':
           description: Validation error.
           content:
@@ -544,9 +548,10 @@ paths:
       summary: Delete a single namespace
       description: Delete a single namespace.
       operationId: deleteNamespace
-      parameters:
+      parameters: #dit moet ik aangaan passen voor de mock
       - in: path
         name: namespace
+        example: default #dit werkt
         schema:
           type: string
         required: true
@@ -716,11 +721,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Column'
+          # example: old version
+          #   - name: first_name
+          #     type: string
+          #     cap: 256
+          #   - name: last_name
+          #     type: string
+          #     cap: 256
           example:
-            - name: first_name
+            - name: Jon
               type: string
-              cap: 256
-            - name: last_name
+              cap: 256 #what is cap?
+            - name: Snow
               type: string
               cap: 256
         rows:
@@ -732,7 +744,7 @@ components:
                 - string
                 - null
             example:
-              - John
+              - Jon
               - null
     Column:
       type: object
@@ -746,15 +758,20 @@ components:
         id:
           type: integer
           format: uint64
+          example: 8
         name:
           type: string
+          example: weirwood_tree
         type:
           type: string
+          example: magic_tree/god?
         cap:
           type: integer
           format: uint64
+          example: 85
         nullable:
           type: boolean
+          example: true
     Catalogs:
       type: array
       items:
@@ -771,16 +788,20 @@ components:
         id:
           type: integer
           format: uint64
+          example: 3
         name:
           type: string
-          example: "customer_service"
+          # example: "customer_service"
+          example: winterfell
         description:
           type: string
+          example: nice city could use a bit more defence
         labels:
           type: array
           nullable: true
           items:
             type: string
+            example: cold, old, nice people
         tables:
           $ref: '#/components/schemas/Tables'
     UpsertCatalog:
@@ -837,9 +858,11 @@ components:
         id:
           type: integer
           format: uint64
+          example: 7
         name:
           type: string
-          example: "Customer Service"
+          # example: "Customer Service"
+          example: "Aray_Stark"
         connector:
           type: string
           example: "postgres"
@@ -888,12 +911,16 @@ components:
         id:
           type: integer
           format: uint64
+          example: 6
         name:
           type: string
+          example: winterfell
         schema:
           type: string
+          example: stark
         schemaless:
           type: boolean
+          example: true 
         columns:
           type: array
           items:
@@ -905,7 +932,6 @@ components:
       properties:
         name:
           type: string
-          example: Hooli
     Namespaces:
       type: array
       items:
@@ -917,6 +943,7 @@ components:
       properties:
         name:
           type: string
+          example: Jon_Snow
     NewUser:
       type: object
       required:
@@ -948,12 +975,15 @@ components:
           format: uint64
         username:
           type: string
+          example: Jon
         full_name:
           type: string
+          example: Jon_Snow 
         email:
           type: string
           format: email
           x-go-type: string
+          example: Jonsnow@gmail.com
     NewServiceAccount:
       type: object
       required:
@@ -987,14 +1017,18 @@ components:
         principal:
           type: string
           format: email
+          example: Jonsnow@gmail.com
         name:
           type: string
+          example: Jon_Snow
         description:
           type: string
+          example: leader of the nightswatch
         labels:
           type: array
           items:
             type: string
+            example: leader, wolf lover, bastard
     Cluster:
       type: object
       required:
@@ -1024,6 +1058,7 @@ components:
           format: uint64
         address:
           type: string
+          example: "Winterfell"
         healthy:
           type: boolean
         ready:
