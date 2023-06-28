@@ -764,7 +764,7 @@ components:
           example: weirwood_tree
         type:
           type: string
-          example: magic_tree/god?
+          example: string
         cap:
           type: integer
           format: uint64
