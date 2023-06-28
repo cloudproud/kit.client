@@ -507,7 +507,7 @@ paths:
                 $ref: '#/components/schemas/Namespaces'
               example: 
                 - name: default
-                - name : Arya_Stark #dit is ook een voorbeeld
+                - name : Arya_Stark
         '401':
           description: The user is unauthorised to retreive an overview of all namespaces.
           content:
@@ -534,7 +534,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Namespace'
-              # example: Sansa Stark #werkt maar niet zo good 
         '400':
           description: Validation error.
           content:
@@ -721,17 +720,10 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Column'
-          # example: old version
-          #   - name: first_name
-          #     type: string
-          #     cap: 256
-          #   - name: last_name
-          #     type: string
-          #     cap: 256
           example:
             - name: Jon
               type: string
-              cap: 256 #what is cap?
+              cap: 256 
             - name: Snow
               type: string
               cap: 256
@@ -791,7 +783,6 @@ components:
           example: 3
         name:
           type: string
-          # example: "customer_service"
           example: winterfell
         description:
           type: string
