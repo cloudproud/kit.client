@@ -547,10 +547,10 @@ paths:
       summary: Delete a single namespace
       description: Delete a single namespace.
       operationId: deleteNamespace
-      parameters: #dit moet ik aangaan passen voor de mock
+      parameters: 
       - in: path
         name: namespace
-        example: default #dit werkt
+        example: default 
         schema:
           type: string
         required: true
@@ -852,8 +852,7 @@ components:
           example: 7
         name:
           type: string
-          # example: "Customer Service"
-          example: "Aray_Stark"
+          example: "Arya_Stark"
         connector:
           type: string
           example: "postgres"
@@ -964,6 +963,7 @@ components:
         id:
           type: integer
           format: uint64
+          example: 9
         username:
           type: string
           example: Jon
