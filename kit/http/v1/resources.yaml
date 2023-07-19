@@ -732,9 +732,7 @@ components:
           items:
             type: array
             items:
-              types:
-                - string
-                - null
+              type: string
             example:
               - Jon
               - null
