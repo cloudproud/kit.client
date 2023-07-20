@@ -733,6 +733,7 @@ components:
             type: array
             items:
               type: string
+              nullable: true
             example:
               - Jon
               - null
@@ -890,6 +891,7 @@ components:
       type: object
       required:
         - id
+        - source_id
         - name
         - schema
         - schemaless
@@ -899,16 +901,18 @@ components:
         id:
           type: integer
           format: uint64
-          example: 6
+        source_id:
+          type: integer
+          format: uint64
         name:
           type: string
-          example: winterfell
+          example: invoices
         schema:
           type: string
-          example: stark
+          example: public
         schemaless:
           type: boolean
-          example: true 
+          example: true
         columns:
           type: array
           items:
