@@ -286,7 +286,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpsertCatalog'
+              $ref: '#/components/schemas/SetCatalog'
       responses:
         '201':
           description:
@@ -357,7 +357,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpsertCatalog'
+              $ref: '#/components/schemas/SetCatalog'
       responses:
         '201':
           description:
@@ -794,7 +794,7 @@ components:
             example: cold, old, nice people
         tables:
           $ref: '#/components/schemas/Tables'
-    UpsertCatalog:
+    SetCatalog:
       type: object
       required:
         - name
