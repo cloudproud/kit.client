@@ -740,16 +740,11 @@ components:
     Column:
       type: object
       required:
-        - id
         - name
         - type
         - cap
         - nullable
       properties:
-        id:
-          type: integer
-          format: uint64
-          example: 8
         name:
           type: string
           example: weirwood_tree
@@ -770,28 +765,28 @@ components:
     Catalog:
       type: object
       required:
-        - id
+        - uid
         - name
         - description
         - labels
         - tables
       properties:
-        id:
+        uid:
           type: integer
           format: uint64
-          example: 3
+          example: 1234567890
         name:
           type: string
-          example: winterfell
+          example: warehousing
         description:
           type: string
-          example: nice city could use a bit more defence
+          example: all data related to warehousing
         labels:
           type: array
           nullable: true
           items:
             type: string
-            example: cold, old, nice people
+            example: logistics, shipping, products
         tables:
           $ref: '#/components/schemas/Tables'
     SetCatalog:
@@ -814,17 +809,16 @@ components:
         tables:
           type: array
           items:
-              $ref: '#/components/schemas/UpsertTable'
-    UpsertTable:
+              $ref: '#/components/schemas/CatalogTable'
+    CatalogTable:
       type: object
       required:
-        - id
+        - ref
         - name
         - schema
       properties:
-        id:
-          type: integer
-          format: uint64
+        ref:
+          $ref: '#/components/schemas/SourceRef'
         name:
           type: string
           description: the table name referenced within SQL queries
@@ -832,6 +826,19 @@ components:
           type: string
           default: public
           description: the table schema referenced within SQL queries
+    SourceRef:
+      type: object
+      required:
+        - name
+        - schema
+        - table
+      properties:
+        name:
+          type: string
+        schema:
+          type: string
+        table:
+          type: string
     Sources:
       type: array
       items:
@@ -839,16 +846,16 @@ components:
     Source:
       type: object
       required:
-        - id
+        - uid
         - name
         - connector
         - healthy
         - tables
       properties:
-        id:
+        uid:
           type: integer
           format: uint64
-          example: 7
+          example: 1234567890
         name:
           type: string
           example: "Arya_Stark"
@@ -890,20 +897,12 @@ components:
     Table:
       type: object
       required:
-        - id
-        - source_id
         - name
         - schema
         - schemaless
         - columns
         - type
       properties:
-        id:
-          type: integer
-          format: uint64
-        source_id:
-          type: integer
-          format: uint64
         name:
           type: string
           example: invoices
@@ -957,15 +956,15 @@ components:
     User:
       type: object
       required:
-        - id
+        - uid
         - full_name
         - username
         - email
       properties:
-        id:
+        uid:
           type: integer
           format: uint64
-          example: 9
+          example: 1234567890
         username:
           type: string
           example: Jon
@@ -980,7 +979,7 @@ components:
     NewServiceAccount:
       type: object
       required:
-        - id
+        - uid
         - name
         - description
         - labels
@@ -1041,17 +1040,17 @@ components:
     Node:
       type: object
       required:
-        - id
+        - uid
         - address
         - healthy
         - ready
       properties:
-        id:
+        uid:
           type: integer
           format: uint64
         address:
           type: string
-          example: "Winterfell"
+          example: "127.0.0.1:50051"
         healthy:
           type: boolean
         ready:
