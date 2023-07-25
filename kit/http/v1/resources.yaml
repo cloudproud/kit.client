@@ -1070,8 +1070,13 @@ components:
     Metrics:
       type: object
       required:
+        - labels
         - values
       properties:
+        labels:
+          type: array
+          items:
+            type: string
         values:
           type: array
           items:
