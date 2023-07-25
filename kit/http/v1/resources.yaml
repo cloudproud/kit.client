@@ -35,6 +35,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Problem'
+  /v1/cluster/metrics/query:
+    get:
+      tags:
+      - Cluster
+      operationId: getQueryMetrics
+      responses:
+        '200':
+          description:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Metrics'
   /v1/namespace/{namespace}/query:
     get:
       tags:
@@ -1055,3 +1067,12 @@ components:
           type: boolean
         ready:
           type: boolean
+    Metrics:
+      type: object
+      required:
+        - values
+      properties:
+        values:
+          type: array
+          items:
+            type: integer
