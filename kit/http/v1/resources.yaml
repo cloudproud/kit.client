@@ -488,6 +488,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Session'
+    delete:
+      tags:
+        - IAM
+      security: []
+      description: Revoke an active session using the provided access token
+      operationId: revokeAuthenticatedSession
+      responses:
+        '200':
+          description: The session has successfully been revoked
+          content:
   /v1/user:
     post:
       tags:
