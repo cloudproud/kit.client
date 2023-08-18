@@ -320,9 +320,9 @@ paths:
     post:
       tags:
       - Catalogs
-      summary: Post a new catalog
+      summary: Set a new catalog
       description: Create a new catalog using the given parameters
-      operationId: newCatalog
+      operationId: setCatalog
       parameters:
         - in: path
           name: namespace
