@@ -74,6 +74,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Problem'
+  /v1/connectors:
+    get:
+      tags:
+        - Sources
+      summary: Fetch all available connectors
+      description: Fetch all available connectors
+      operationId: getConnectors
+      responses:
+        '200':
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Connectors'
+        '401':
+          description: The user is unauthorised to access the sources within the given namespace
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
   /v1/namespace/{namespace}/sources:
     get:
       tags:
@@ -799,6 +819,60 @@ components:
           type: string
         table:
           type: string
+    Connectors:
+      type: array
+      items:
+        $ref: '#/components/schemas/Connector'
+    Connector:
+      type: object
+      required:
+        - name
+        - options
+      properties:
+        name:
+          type: string
+          example: postgres
+        options:
+          type: array
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/ConnectorOption'
+    ConnectorOption:
+      type: object
+      required:
+        - key
+        - name
+        - required
+        - type
+        - default
+        - placeholder
+        - description
+      properties:
+        key:
+          type: string
+          example: host
+        name:
+          type: string
+          example: Host
+        required:
+          type: boolean
+          example: true
+        type:
+          type: string
+          enum: 
+            - string
+            - boolean
+            - integer
+        default:
+          type: string
+          example:
+        placeholder:
+          type: string
+          example: 127.0.0.1
+        description:
+          type: string
+          example: hostname of the data source
     Sources:
       type: array
       items:
