@@ -826,12 +826,16 @@ components:
     Connector:
       type: object
       required:
+        - id
         - name
         - options
       properties:
-        name:
+        id:
           type: string
           example: postgres
+        name:
+          type: string
+          example: PostgreSQL
         options:
           type: array
           items:
