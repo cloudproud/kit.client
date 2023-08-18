@@ -177,6 +177,14 @@ paths:
       responses:
         '200':
           description: The source options are valid and a connection has been established
+          content:
+            application/json:
+        '400':
+          description: Unable to connect to the given source using the provided options
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Problem'
         '401':
           description: The user is unauthorised to create a new source
           content:
