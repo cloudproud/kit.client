@@ -1033,10 +1033,22 @@ components:
     Cluster:
       type: object
       required:
+        - advertised_host
+        - advertised_port
+        - tls
         - leader
         - healthy
         - nodes
       properties:
+        advertised_host:
+          type: string
+          example: 127.0.0.1
+        advertised_port:
+          type: string
+          example: 5432
+        tls:
+          type: boolean
+          example: true
         leader:
           type: integer
           format: uint64
@@ -1050,19 +1062,12 @@ components:
       type: object
       required:
         - uid
-        - address
         - healthy
-        - ready
       properties:
         uid:
           type: integer
           format: uint64
-        address:
-          type: string
-          example: "127.0.0.1:50051"
         healthy:
-          type: boolean
-        ready:
           type: boolean
     AuthenticateUsernamePassword:
       type: object
