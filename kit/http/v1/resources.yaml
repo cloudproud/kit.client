@@ -882,6 +882,7 @@ components:
           type: string
           enum: 
             - string
+            - password
             - boolean
             - integer
         default:
