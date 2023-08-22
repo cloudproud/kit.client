@@ -1,6 +1,6 @@
-## CloudProud specs 🌥️
+## CloudProud client 🌥️
 
-This repository serves as a centralized hub for storing and sharing specifications used in various projects. Whether you are working on an API project, documentation, or any other software-related endeavor, this repository provides a convenient location to access and collaborate on shared specifications.
+This repository serves as a centralized hub for storing and sharing specifications used in kit clients. Whether you are working on an API project, documentation, or any other software-related endeavor, this repository provides a convenient location to access and collaborate on shared specifications.
 
 ### What are specifications?
 
