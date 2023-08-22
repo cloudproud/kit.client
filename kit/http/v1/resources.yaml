@@ -926,12 +926,26 @@ components:
       type: object
       required:
         - name
+        - description
+        - labels
+        - expose
         - connector
         - options
       properties:
         name:
           type: string
           example: "Customer Service"
+        description:
+          type: string
+          example: "Customer Service"
+        labels:
+          type: array
+          items:
+            type: string
+            example: logistics, shipping, products
+        expose:
+          type: boolean
+          example: true
         connector:
           type: string
           example: "postgresql"
