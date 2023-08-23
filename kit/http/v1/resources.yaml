@@ -928,7 +928,7 @@ components:
         - name
         - description
         - labels
-        - expose
+        - create_catalog
         - connector
         - options
       properties:
@@ -943,7 +943,7 @@ components:
           items:
             type: string
             example: logistics, shipping, products
-        expose:
+        create_catalog:
           type: boolean
           example: true
         connector:
