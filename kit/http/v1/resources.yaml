@@ -3,7 +3,7 @@ info:
   title: Kit
   version: 0.1.0
   description: |-
-    
+
 tags:
   - name: Cluster
     description: Endpoints to manage and interact with the cluster (Enterprise Only)
@@ -19,22 +19,22 @@ paths:
   /v1/cluster:
     get:
       tags:
-      - Cluster
+        - Cluster
       summary: Get information about the current cluster
       operationId: getCluster
       responses:
-        '200':
-          description:
+        "200":
+          description: ""
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Cluster'
-        '400':
+                $ref: "#/components/schemas/Cluster"
+        "400":
           description: The user is unauthorised to create a new catalog
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
   /v1/namespace/{namespace}/query:
     get:
       tags:
@@ -56,24 +56,24 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        "200":
           description: The query has executed successfully.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Rows'
-        '400':
+                $ref: "#/components/schemas/Rows"
+        "400":
           description: Invalid SQL query. This status code is returned whenever the returned SQL query is invalid.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
-        '401':
+                $ref: "#/components/schemas/Problem"
+        "401":
           description: The user is unauthorised to access one or more of the requested data catalogs.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
   /v1/connectors:
     get:
       tags:
@@ -82,18 +82,18 @@ paths:
       description: Fetch all available connectors
       operationId: getConnectors
       responses:
-        '200':
+        "200":
           description: ""
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Connectors'
-        '401':
+                $ref: "#/components/schemas/Connectors"
+        "401":
           description: The user is unauthorised to access the sources within the given namespace
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
   /v1/namespace/{namespace}/sources:
     get:
       tags:
@@ -109,22 +109,22 @@ paths:
           required: true
           description: Unique namespace identifier
       responses:
-        '200':
+        "200":
           description: ""
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Sources'
-        '401':
+                $ref: "#/components/schemas/Sources"
+        "401":
           description: The user is unauthorised to access the sources within the given namespace
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
   /v1/namespace/{namespace}/source:
     post:
       tags:
-      - Sources
+        - Sources
       summary: Create a new source
       description: Create a new catalog source using the given parameters
       operationId: newSource
@@ -140,24 +140,24 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewSource'
+              $ref: "#/components/schemas/NewSource"
       responses:
-        '201':
-          description:
+        "201":
+          description: ""
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Source'
-        '401':
+                $ref: "#/components/schemas/Source"
+        "401":
           description: The user is unauthorised to create a new source
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
   /v1/namespace/{namespace}/source/test_connection:
     post:
       tags:
-      - Sources
+        - Sources
       summary: Test the source connection
       description: Attempt to create a connection to the given source
       operationId: testSourceConnection
@@ -173,26 +173,26 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewSource'
+              $ref: "#/components/schemas/NewSource"
       responses:
-        '200':
+        "200":
           description: The source options are valid and a connection has been established
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Empty'
-        '400':
+                $ref: "#/components/schemas/Empty"
+        "400":
           description: Unable to connect to the given source using the provided options
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
-        '401':
+                $ref: "#/components/schemas/Problem"
+        "401":
           description: The user is unauthorised to create a new source
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
   /v1/namespace/{namespace}/source/{source}:
     get:
       tags:
@@ -214,24 +214,24 @@ paths:
           required: true
           description: Unique source identifier
       responses:
-        '200':
-          description:
+        "200":
+          description: ""
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Source'
-        '404':
+                $ref: "#/components/schemas/Source"
+        "404":
           description: The requested source has not been found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
-        '401':
+                $ref: "#/components/schemas/Problem"
+        "401":
           description: The user is unauthorised to access the given source.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
     delete:
       tags:
         - Sources
@@ -252,14 +252,14 @@ paths:
           required: true
           description: Unique source identifier
       responses:
-        '200':
+        "200":
           description: The source has been deleted
-        '401':
+        "401":
           description: The user is unauthorised to delete the given source
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
   /v1/namespace/{namespace}/source/{source}/options:
     get:
       tags:
@@ -281,18 +281,18 @@ paths:
           required: true
           description: Unique source identifier
       responses:
-        '200':
-          description:
+        "200":
+          description: ""
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SourceOptions'
-        '401':
+                $ref: "#/components/schemas/SourceOptions"
+        "401":
           description: The user is unauthorised to access the given source options.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
   /v1/namespace/{namespace}/source/{source}/fetch:
     get:
       tags:
@@ -314,22 +314,22 @@ paths:
           required: true
           description: Unique source identifier
       responses:
-        '200':
-          description:
+        "200":
+          description: ""
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Source'
-        '401':
+                $ref: "#/components/schemas/Source"
+        "401":
           description: The user is unauthorised to fetch the latest source schemas
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
   /v1/namespace/{namespace}/catalog:
     post:
       tags:
-      - Catalogs
+        - Catalogs
       summary: Set a new catalog
       description: Create a new catalog using the given parameters
       operationId: setCatalog
@@ -345,20 +345,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SetCatalog'
+              $ref: "#/components/schemas/SetCatalog"
       responses:
-        '201':
-          description:
+        "201":
+          description: ""
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Catalog'
-        '401':
+                $ref: "#/components/schemas/Catalog"
+        "401":
           description: The user is unauthorised to create a new catalog
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
   /v1/namespace/{namespace}/catalog/{catalog}:
     get:
       tags:
@@ -380,21 +380,21 @@ paths:
           required: true
           description: Unique catalog identifier
       responses:
-        '200':
-          description:
+        "200":
+          description: ""
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Catalog'
-        '401':
+                $ref: "#/components/schemas/Catalog"
+        "401":
           description: The user is unauthorised to get all tables.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
     put:
       tags:
-      - Catalogs
+        - Catalogs
       summary: Add a table to a catalog
       description: Attempts to add the given dataset to the given catalog
       operationId: updateCatalog
@@ -416,20 +416,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/SetCatalog'
+              $ref: "#/components/schemas/SetCatalog"
       responses:
-        '201':
-          description:
+        "201":
+          description: ""
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Catalog'
-        '400':
+                $ref: "#/components/schemas/Catalog"
+        "400":
           description: The user is unauthorised to create a new catalog
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
     delete:
       tags:
         - Catalogs
@@ -450,14 +450,14 @@ paths:
           required: true
           description: Unique catalog identifier
       responses:
-        '200':
+        "200":
           description: The catalog has been deleted
-        '401':
+        "401":
           description: The user is unauthorised to delete the given catalog
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
   /v1/namespace/{namespace}/catalogs:
     get:
       tags:
@@ -473,12 +473,12 @@ paths:
           required: true
           description: Unique namespace identifier
       responses:
-        '200':
-          description: 
+        "200":
+          description: ""
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Catalogs'
+                $ref: "#/components/schemas/Catalogs"
   /v1/authenticate/session:
     post:
       tags:
@@ -491,14 +491,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AuthenticateUsernamePassword'
+              $ref: "#/components/schemas/AuthenticateUsernamePassword"
       responses:
-        '200':
-          description:
+        "200":
+          description: ""
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Session'
+                $ref: "#/components/schemas/Session"
     put:
       tags:
         - IAM
@@ -510,14 +510,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RefreshSession'
+              $ref: "#/components/schemas/RefreshSession"
       responses:
-        '201':
-          description:
+        "201":
+          description: ""
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Session'
+                $ref: "#/components/schemas/Session"
     delete:
       tags:
         - IAM
@@ -525,9 +525,8 @@ paths:
       description: Revoke an active session using the provided access token
       operationId: revokeAuthenticatedSession
       responses:
-        '200':
+        "200":
           description: The session has successfully been revoked
-          content:
   /v1/user:
     post:
       tags:
@@ -540,14 +539,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewUser'
+              $ref: "#/components/schemas/NewUser"
       responses:
-        '201':
-          description:
+        "201":
+          description: ""
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: "#/components/schemas/User"
   /v1/user/{id}:
     get:
       tags:
@@ -556,26 +555,26 @@ paths:
       description: Get a user matching the given id.
       operationId: getUser
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-          format: uint64
-        required: true
-        description: Unique user identifier
+        - in: path
+          name: id
+          schema:
+            type: integer
+            format: uint64
+          required: true
+          description: Unique user identifier
       responses:
-        '200':
-          description:
+        "200":
+          description: ""
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-        '404':
+                $ref: "#/components/schemas/User"
+        "404":
           description: no record
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
     delete:
       tags:
         - IAM
@@ -583,22 +582,22 @@ paths:
       description: Delete a single user
       operationId: deleteUser
       parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-          format: uint64
-        required: true
-        description: Unique user identifier
+        - in: path
+          name: id
+          schema:
+            type: integer
+            format: uint64
+          required: true
+          description: Unique user identifier
       responses:
-        '200':
+        "200":
           description: The user has been deleted
-        '401':
+        "401":
           description: The user is unauthorised to delete the given user
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
   /v1/namespaces:
     get:
       tags:
@@ -607,21 +606,21 @@ paths:
       description: Retreive all namespaces that the given user is part of.
       operationId: getAllNamespaces
       responses:
-        '200':
-          description:
+        "200":
+          description: ""
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Namespaces'
-              example: 
+                $ref: "#/components/schemas/Namespaces"
+              example:
                 - name: default
-                - name : Arya_Stark
-        '401':
+                - name: Arya_Stark
+        "401":
           description: The user is unauthorised to retreive an overview of all namespaces.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
   /v1/namespace:
     post:
       tags:
@@ -634,20 +633,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewNamespace'
+              $ref: "#/components/schemas/NewNamespace"
       responses:
-        '200':
-          description:
+        "200":
+          description: ""
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Namespace'
-        '400':
+                $ref: "#/components/schemas/Namespace"
+        "400":
           description: Validation error.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
   /v1/namespace/{namespace}:
     delete:
       tags:
@@ -655,23 +654,23 @@ paths:
       summary: Delete a single namespace
       description: Delete a single namespace.
       operationId: deleteNamespace
-      parameters: 
-      - in: path
-        name: namespace
-        example: default 
-        schema:
-          type: string
-        required: true
-        description: Unique namespace identifier
+      parameters:
+        - in: path
+          name: namespace
+          example: default
+          schema:
+            type: string
+          required: true
+          description: Unique namespace identifier
       responses:
-        '200':
+        "200":
           description: The namespace has been deleted
-        '401':
+        "401":
           description: The user is unauthorised to delete the given namespace
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Problem'
+                $ref: "#/components/schemas/Problem"
 components:
   securitySchemes:
     bearerAuth:
@@ -711,11 +710,11 @@ components:
         columns:
           type: array
           items:
-            $ref: '#/components/schemas/Column'
+            $ref: "#/components/schemas/Column"
           example:
             - name: Jon
               type: string
-              cap: 256 
+              cap: 256
             - name: Snow
               type: string
               cap: 256
@@ -753,7 +752,7 @@ components:
     Catalogs:
       type: array
       items:
-        $ref: '#/components/schemas/Catalog'
+        $ref: "#/components/schemas/Catalog"
     Catalog:
       type: object
       required:
@@ -780,7 +779,7 @@ components:
             type: string
             example: logistics, shipping, products
         tables:
-          $ref: '#/components/schemas/Tables'
+          $ref: "#/components/schemas/Tables"
     SetCatalog:
       type: object
       required:
@@ -801,7 +800,7 @@ components:
         tables:
           type: array
           items:
-              $ref: '#/components/schemas/CatalogTable'
+            $ref: "#/components/schemas/CatalogTable"
     CatalogTable:
       type: object
       required:
@@ -810,7 +809,7 @@ components:
         - schema
       properties:
         ref:
-          $ref: '#/components/schemas/SourceRef'
+          $ref: "#/components/schemas/SourceRef"
         name:
           type: string
           description: the table name referenced within SQL queries
@@ -834,7 +833,7 @@ components:
     Connectors:
       type: array
       items:
-        $ref: '#/components/schemas/Connector'
+        $ref: "#/components/schemas/Connector"
     Connector:
       type: object
       required:
@@ -857,7 +856,7 @@ components:
           items:
             type: array
             items:
-              $ref: '#/components/schemas/ConnectorOption'
+              $ref: "#/components/schemas/ConnectorOption"
     ConnectorOption:
       type: object
       required:
@@ -880,7 +879,7 @@ components:
           example: true
         type:
           type: string
-          enum: 
+          enum:
             - string
             - password
             - boolean
@@ -897,7 +896,7 @@ components:
     Sources:
       type: array
       items:
-        $ref: '#/components/schemas/Source'
+        $ref: "#/components/schemas/Source"
     Source:
       type: object
       required:
@@ -921,7 +920,7 @@ components:
         healthy:
           type: boolean
         tables:
-          $ref: '#/components/schemas/Tables'
+          $ref: "#/components/schemas/Tables"
     NewSource:
       type: object
       required:
@@ -951,7 +950,7 @@ components:
           example: "postgresql"
           description: represents the connector name used to connect with the given source
         options:
-          $ref: '#/components/schemas/SourceOptions'
+          $ref: "#/components/schemas/SourceOptions"
     SourceOptions:
       type: object
       additionalProperties:
@@ -962,7 +961,7 @@ components:
     Tables:
       type: array
       items:
-        $ref: '#/components/schemas/Table'
+        $ref: "#/components/schemas/Table"
     Table:
       type: object
       required:
@@ -988,7 +987,7 @@ components:
         columns:
           type: array
           items:
-            $ref: '#/components/schemas/Column'
+            $ref: "#/components/schemas/Column"
     NewNamespace:
       type: object
       required:
@@ -999,7 +998,7 @@ components:
     Namespaces:
       type: array
       items:
-        $ref: '#/components/schemas/Namespace'
+        $ref: "#/components/schemas/Namespace"
     Namespace:
       type: object
       required:
@@ -1043,7 +1042,7 @@ components:
           example: Jon
         full_name:
           type: string
-          example: Jon_Snow 
+          example: Jon_Snow
         email:
           type: string
           format: email
@@ -1076,7 +1075,7 @@ components:
         nodes:
           type: array
           items:
-            $ref: '#/components/schemas/Node'
+            $ref: "#/components/schemas/Node"
     Node:
       type: object
       required:
