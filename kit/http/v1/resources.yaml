@@ -547,7 +547,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
-  /v1/user/{id}:
+  /v1/user/{username}:
     get:
       tags:
         - IAM
@@ -556,12 +556,11 @@ paths:
       operationId: getUser
       parameters:
         - in: path
-          name: id
+          name: username
           schema:
-            type: integer
-            format: uint64
+            type: string
           required: true
-          description: Unique user identifier
+          description: Unique user username
       responses:
         "200":
           description: ""
@@ -583,12 +582,11 @@ paths:
       operationId: deleteUser
       parameters:
         - in: path
-          name: id
+          name: username
           schema:
-            type: integer
-            format: uint64
+            type: string
           required: true
-          description: Unique user identifier
+          description: Unique user username
       responses:
         "200":
           description: The user has been deleted
