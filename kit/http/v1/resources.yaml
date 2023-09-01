@@ -715,7 +715,7 @@ components:
       bearerFormat: token
   schemas:
     Empty:
-      type: object
+      type: string
     Problem:
       type: object
       required:
