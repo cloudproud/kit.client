@@ -1111,7 +1111,6 @@ components:
         - tls
         - leader
         - healthy
-        - nodes
       properties:
         advertised_host:
           type: string
@@ -1127,10 +1126,10 @@ components:
           format: uint64
         healthy:
           type: boolean
-        nodes:
-          type: array
-          items:
-            $ref: "#/components/schemas/Node"
+    Nodes:
+      type: array
+      items:
+        $ref: "#/components/schemas/Node"
     Node:
       type: object
       required:
