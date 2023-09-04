@@ -29,12 +29,27 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Cluster"
-        "400":
-          description: The user is unauthorised to create a new catalog
+        "401":
+          description: The user is unauthorised to access the cluster details
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Problem"
+  /v1/cluster/nodes:
+    get:
+      tags:
+        - Cluster
+      summary: Get information about the current cluster nodes
+      operationId: getClusterNodes
+      responses:
+        "200":
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Nodes"
+        "401":
+          description: The user is unauthorised access the cluster nodes
   /v1/namespace/{namespace}/query:
     get:
       tags:
