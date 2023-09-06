@@ -1,0 +1,94 @@
+openapi: 3.0.3
+info:
+  title: Management
+  version: 0.1.0
+  description: |-
+
+tags:
+  - name: signUp
+    description: Endpoints to interact with management
+paths:
+  /v1/sign-up:
+    post:
+      tags:
+        - signUp
+      summary: Post information about the sign up
+      operationId: signUp
+      responses:
+        "201":
+          description: "The request succeeded, and a new resource was created as a result."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/signUp"
+        "400":
+          description: The server cannot or will not process the request due to something that is perceived to be a client error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "500":
+          description: The server has encountered a situation it does not know how to handle.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: token
+  schemas:
+    Empty:
+      type: string
+    Problem:
+      type: object
+      required:
+        - title
+        - detail
+      properties:
+        title:
+          type: string
+          description: >
+            A short summary of the problem type. Written in English and readable
+            for engineers, usually not suited for non technical stakeholders and
+            not localized.
+          example: some title for the error situation
+        detail:
+          type: string
+          description: >
+            A human readable explanation specific to this occurrence of the
+            problem that is helpful to locate the problem and give advice on how
+            to proceed. Written in English and readable for engineers, usually not
+            suited for non technical stakeholders and not localized.
+          example: some description for the error situation
+    signUp:
+      type: object
+      required:
+        - full_name
+        - email
+        - namespace
+        - password
+        - company
+      properties:
+        full_name:
+          type: string
+          example: John Smith
+        email:
+          type: string
+          example: johnsmith@imaginarycompany.com
+        namespace:
+          type: string
+          example: imaginary-company.
+        password:
+          type: string
+          example: Password123
+        company:
+          type: string
+          example: Imaginary Company B.V.
+          
+          
+security:
+  - bearerAuth: []
