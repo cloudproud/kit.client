@@ -765,10 +765,8 @@ components:
           example:
             - name: Jon
               type: string
-              cap: 256
             - name: Snow
               type: string
-              cap: 256
         rows:
           type: array
           items:
@@ -784,7 +782,6 @@ components:
       required:
         - name
         - type
-        - cap
         - nullable
       properties:
         name:
@@ -793,10 +790,6 @@ components:
         type:
           type: string
           example: string
-        cap:
-          type: integer
-          format: uint64
-          example: 85
         nullable:
           type: boolean
           example: true
