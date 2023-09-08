@@ -7,6 +7,8 @@ info:
 tags:
   - name: signUp
     description: Endpoints to interact with management
+  - name: validateEmail
+    description: Endpoints to validate E-Mails
 paths:
   /v1/sign-up:
     post:
@@ -14,6 +16,32 @@ paths:
         - signUp
       summary: Post information about the sign up
       operationId: signUp
+      responses:
+        "201":
+          description: "The request succeeded, and a new resource was created as a result."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/signUp"
+        "400":
+          description: The server cannot or will not process the request due to something that is perceived to be a client error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "500":
+          description: The server has encountered a situation it does not know how to handle.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+                
+  /v1/email/validate?token=abc
+    post:
+      tags:
+        - validateEmail
+      summary: Get validating the E-Mail
+      operationId: validTEEmail
       responses:
         "201":
           description: "The request succeeded, and a new resource was created as a result."
@@ -88,6 +116,14 @@ components:
         company:
           type: string
           example: Imaginary Company B.V.
+    validateEmail:
+      type: object
+      required:
+        - email
+      properties:
+        email:
+          type: string
+          example: johnsmith@imaginarycompany.com
           
           
 security:
