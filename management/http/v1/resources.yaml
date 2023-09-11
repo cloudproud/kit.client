@@ -36,11 +36,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
   /v1/email/validate:
-    post:
+    get:
       tags:
         - validateEmail
       summary: Get validating the E-Mail
-      operationId: validEmail
+      operationId: validateEmail
       parameters:
         - in: query
           name: token
