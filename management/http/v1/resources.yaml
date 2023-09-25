@@ -105,6 +105,7 @@ components:
         - namespace
         - password
         - company
+        - username
       properties:
         full_name:
           type: string
@@ -121,6 +122,9 @@ components:
         company:
           type: string
           example: Imaginary Company B.V.
+        username:
+          type: string
+          example: JohSmi
     validateEmail:
       type: object
       required:
