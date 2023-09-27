@@ -722,6 +722,43 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Problem"
+    delete:
+      tags:
+        - IAM
+      summary: Delete the given role
+      description: Delete the given role of the user within the given namespace
+      operationId: deletePolicy
+      parameters:
+        - in: path
+          name: namespace
+          example: default
+          schema:
+            type: string
+          required: true
+          description: Unique namespace identifier
+        - in: path
+          name: username
+          example: kit
+          schema:
+            type: string
+          required: true
+          description: User username
+        - in: path
+          name: role
+          example: owner
+          schema:
+            type: string
+          required: true
+          description: Role key
+      responses:
+        "200":
+          description: The role of the user has been deleted
+        "401":
+          description: The user is unauthorised to delete the given role
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
 components:
   securitySchemes:
     bearerAuth:
