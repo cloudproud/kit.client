@@ -14,7 +14,7 @@ tags:
   - name: Catalogs
     description: Endpoints to manage and interact with data catalogs
   - name: IAM
-    description: Identity access management endpoints
+    description: Identity access cloud endpoints
 paths:
   /v1/cluster:
     get:

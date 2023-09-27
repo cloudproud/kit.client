@@ -1,12 +1,12 @@
 openapi: 3.0.3
 info:
-  title: Management
+  title: Cloud
   version: 0.1.0
   description: |-
 
 tags:
   - name: signUp
-    description: Endpoints to interact with management
+    description: Endpoints to interact with cloud
   - name: validateEmail
     description: Endpoints to validate E-Mails
 paths:
