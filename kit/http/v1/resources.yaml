@@ -562,6 +562,32 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
+  /v1/users:
+    get:
+      tags:
+        - IAM
+      summary: Get all users
+      description: Get all users within the cluster.
+      operationId: getUsers
+      responses:
+        "200":
+          description: List of users within the cluster
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Users"
+        "401":
+          description: User is unauthorised to access the given users
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
   /v1/user/{username}:
     get:
       tags:
@@ -578,13 +604,25 @@ paths:
           description: Unique user username
       responses:
         "200":
-          description: ""
+          description: User found
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
         "404":
-          description: no record
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "401":
+          description: User is unauthorised to access the given user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "500":
+          description: Internal server error
           content:
             application/json:
               schema:
@@ -1284,6 +1322,10 @@ components:
           x-go-type: string
         password:
           type: string
+    Users:
+      type: array
+      items:
+        $ref: "#/components/schemas/User"
     User:
       type: object
       required:
