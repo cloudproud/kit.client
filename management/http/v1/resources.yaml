@@ -16,13 +16,18 @@ paths:
         - signUp
       summary: Post information about the sign up
       operationId: signUp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SignUp"
       responses:
         "201":
           description: "The request succeeded, and a new resource was created as a result."
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/SignUp"
+                $ref: "#/components/schemas/Empty"
         "400":
           description: The server cannot or will not process the request due to something that is perceived to be a client error
           content:
@@ -47,13 +52,18 @@ paths:
           schema:
             type: string
           description: User Token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ValidateEmail"
       responses:
         "201":
           description: "The request succeeded, and a new resource was created as a result."
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ValidateEmail"
+                $ref: "#/components/schemas/Empty"
         "400":
           description: The server cannot or will not process the request due to something that is perceived to be a client error
           content:
