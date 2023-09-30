@@ -123,10 +123,10 @@ components:
         email:
           type: string
           example: johnsmith@imaginarycompany.com
-        namespace:
+        namespace_name:
           type: string
           example: Imaginary Company B.V.
-        subdomain:
+        namespace:
           type: string
           example: imaginary-company.
         password:
