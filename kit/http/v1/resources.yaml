@@ -667,6 +667,7 @@ paths:
       summary: Get the namespace details
       description: Get the namespace details configured within the cluster.
       operationId: getNamespace
+      security: []
       parameters:
         - in: path
           name: namespace
