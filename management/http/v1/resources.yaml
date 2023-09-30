@@ -113,7 +113,7 @@ components:
         - full_name
         - email
         - namespace
-        - subdomain
+        - namespace_name
         - password
         - username
       properties:
@@ -123,12 +123,12 @@ components:
         email:
           type: string
           example: johnsmith@imaginarycompany.com
-        namespace_name:
-          type: string
-          example: Imaginary Company B.V.
         namespace:
           type: string
           example: imaginary-company.
+        namespace_name:
+          type: string
+          example: Imaginary Company B.V.
         password:
           type: string
           example: Password123
