@@ -752,6 +752,93 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Problem"
+  /v1/namespace/{namespace}/policies:
+    get:
+      tags:
+        - IAM
+      summary: Get the roles of the given users
+      description: Get the roles of the given users within the given namespace
+      operationId: getPolicies
+      parameters:
+        - in: path
+          name: namespace
+          example: default
+          schema:
+            type: string
+          required: true
+          description: Unique namespace identifier
+      responses:
+        "200":
+          description: The roles assigned to the given users within the given namespace
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Policies"
+        "401":
+          description: The user is unauthorised to get the policies of the given user within the given namespace
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: The given user or namespace was not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+  /v1/namespace/{namespace}/user/{username}/policy:
+    get:
+      tags:
+        - IAM
+      summary: Get the roles of the given user
+      description: Get the roles of the given user within the given namespace
+      operationId: getPolicy
+      parameters:
+        - in: path
+          name: namespace
+          example: default
+          schema:
+            type: string
+          required: true
+          description: Unique namespace identifier
+        - in: path
+          name: username
+          example: kit
+          schema:
+            type: string
+          required: true
+          description: User username
+      responses:
+        "200":
+          description: The roles assigned to the given user within the given namespace
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Policy"
+        "401":
+          description: The user is unauthorised to get the policies of the given user within the given namespace
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "404":
+          description: The given user or namespace was not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Problem"
   /v1/namespace/{namespace}/user/{username}/policy/{role}:
     post:
       tags:
@@ -1293,5 +1380,24 @@ components:
         ttl:
           type: string
           format: date-time
+    Policies:
+      type: array
+      items:
+        $ref: "#/components/schemas/Policy"
+    Policy:
+      type: object
+      required:
+        - namespace
+        - subject
+        - roles
+      properties:
+        namespace:
+          type: string
+        subject:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
 security:
   - bearerAuth: []
