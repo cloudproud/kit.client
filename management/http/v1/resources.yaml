@@ -22,7 +22,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/signUp"
+                $ref: "#/components/schemas/SignUp"
         "400":
           description: The server cannot or will not process the request due to something that is perceived to be a client error
           content:
@@ -53,7 +53,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/validateEmail"
+                $ref: "#/components/schemas/ValidateEmail"
         "400":
           description: The server cannot or will not process the request due to something that is perceived to be a client error
           content:
@@ -97,7 +97,7 @@ components:
             to proceed. Written in English and readable for engineers, usually not
             suited for non technical stakeholders and not localized.
           example: some description for the error situation
-    signUp:
+    SignUp:
       type: object
       required:
         - full_name
@@ -128,7 +128,7 @@ components:
         username:
           type: string
           example: JohSmi
-    validateEmail:
+    ValidateEmail:
       type: object
       required:
         - email
