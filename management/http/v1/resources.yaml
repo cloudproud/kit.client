@@ -122,9 +122,6 @@ components:
         password:
           type: string
           example: Password123
-        company:
-          type: string
-          example: Imaginary Company B.V.
         username:
           type: string
           example: JohSmi
