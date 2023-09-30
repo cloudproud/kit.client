@@ -103,8 +103,8 @@ components:
         - full_name
         - email
         - namespace
+        - subdomain
         - password
-        - company
         - username
       properties:
         full_name:
@@ -114,6 +114,9 @@ components:
           type: string
           example: johnsmith@imaginarycompany.com
         namespace:
+          type: string
+          example: Imaginary Company B.V.
+        subdomain:
           type: string
           example: imaginary-company.
         password:
@@ -133,7 +136,6 @@ components:
         email:
           type: string
           example: johnsmith@imaginarycompany.com
-          
-          
+
 security:
   - bearerAuth: []
