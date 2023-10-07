@@ -328,6 +328,12 @@ paths:
             type: string
           required: true
           description: Unique source identifier
+        - in: query
+          name: expose_global
+          description: Update the globally exposed tables from the given source
+          required: true
+          schema:
+            type: boolean
       responses:
         "200":
           description: ""
