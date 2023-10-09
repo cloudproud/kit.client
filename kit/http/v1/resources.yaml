@@ -661,7 +661,7 @@ paths:
         - IAM
       summary: Retreive all namespaces
       description: Retreive all namespaces that the given user is part of.
-      operationId: getAllNamespaces
+      operationId: getNamespaces
       responses:
         "200":
           description: ""
