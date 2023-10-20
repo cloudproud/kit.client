@@ -1103,15 +1103,12 @@ components:
         - name
         - schema
         - table
-        - catalog
       properties:
         name:
           type: string
         schema:
           type: string
         table:
-          type: string
-        catalog:
           type: string
     Connectors:
       type: array
