@@ -70,6 +70,17 @@ paths:
           required: true
           schema:
             type: string
+        - name: limit
+          in: query
+          description: The total amount of rows to be returned
+          default: "100"
+          schema:
+            type: number
+            enum:
+              - "100"
+              - "500"
+              - "1000"
+              - "0"
       responses:
         "200":
           description: The query has executed successfully.
