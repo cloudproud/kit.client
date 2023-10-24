@@ -1004,6 +1004,7 @@ components:
       required:
         - columns
         - rows
+        - response_time
       properties:
         columns:
           type: array
@@ -1024,6 +1025,9 @@ components:
             example:
               - Jon
               - null
+        response_time:
+          description: response time in ms
+          type: integer
     Column:
       type: object
       required:
